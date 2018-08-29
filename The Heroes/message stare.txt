@@ -1,0 +1,114 @@
+public class Message extends JDialog implements Cloneable, Serializable{
+
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private transient Rectangle rect;
+	private String text;
+	
+	private JButton okButton = new JButton("OK");
+	//ArrayList<String> wrapedText = new ArrayList<String>(); 
+	
+	//private int charWidth = 5; //Szerokoœæ znaku w pikselach
+	//private int charHeight = 10; //Wysokoœæ linii w pikselach
+	
+	//KONSTRUKTORY
+	
+	//Pe³ne konstruktory
+	public Message(int x, int y, int width, int height, String text)
+	{
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.text = text;
+		
+		rect = new Rectangle(x, y, width, height);
+	}
+
+	public Message(Rectangle rect, String text){
+		this.rect = rect;
+		this.text = text;
+	}
+	
+	//Konstruktory z domyœln¹ pozycj¹ i wielkoœci¹ ustalan¹ na podstawie tekstu
+	public Message(String text)
+	{
+		this.text = text;
+		
+		//Ustalanie szerokoœci
+		//if(text.length() < 100) width = 30*charWidth;
+		//else if (text.length() < 500) width = 50*charWidth;
+		//else width = 800;
+		
+		//wrapedText = wrapText(text);
+		//height = wrapedText.size()*charHeight + okButton.getHeight() + 20;
+	}
+	
+	/*
+	public ArrayList<String> wrapText(String text)
+	{
+		ArrayList<String> wt = new ArrayList<String>();
+
+		char c; 
+		int i = 0; //pomocnicze zmienne do sterowania pêtl¹
+		String lastLine = " ";
+		String lastWord = " ";
+		 
+		
+		//Zawijanie tekstu
+		while (i < text.length()){
+			c = text.charAt(i);
+			lastWord = " "+c;
+			while(c != ' ') //pêtla oddzielaj¹ca ka¿de s³owo
+			{
+				i++;
+				c = text.charAt(i);
+				lastWord += c;
+			}
+			if((lastLine.length() + lastWord.length())*charWidth > width) {
+				wt.add(lastLine);
+				lastLine = lastWord;
+			}
+			i++;
+		}
+		
+		return wt;
+	}
+	
+	public void paint(Graphics g, ImageObserver io){ // posX - pocz¹tek ekranu w osi X   
+		Graphics2D g2d = (Graphics2D) g;
+
+		int i = 0;
+		for(String s : wrapedText)
+		{
+			g2d.drawString(s, 10, 20 + i*10);
+			i++;
+		}
+		
+	    }
+	*/
+	
+	public void setX(int i){x = i;}
+	public int getX(){return x;}
+	public void setY(int i){y = i;}
+	public int getY(){return y;}
+	public void setWidth(int i){width = i;}
+	public int getWidth(){return width;}
+	public void setHeight(int i){height = i;}
+	public int getHeight(){return height;}
+	
+	public Message clone() throws CloneNotSupportedException {
+		return (Message) super.clone();} 
+
+	//ZAPIS I ODCZYT DANYCH
+	private void writeObject(ObjectOutputStream out) throws IOException{
+		out.defaultWriteObject();
+	}
+
+	private void readObject (ObjectInputStream in) throws ClassNotFoundException, IOException{
+		in.defaultReadObject();
+		rect = new Rectangle(x, y, width, height);
+	}
+}
