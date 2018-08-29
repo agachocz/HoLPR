@@ -208,9 +208,12 @@ public class Creator extends JFrame implements KeyListener, Serializable, MouseL
 	
 	//PARTIE POLITYCZNE
 	Party[] parties = new Party[3];{
-		parties[0] = new Party( (byte)Main.ID++, "PIS", "Prawo i Sprawiedliwoœæ", "Graphics//Things//Parties//logo//PiS.png", decisions, buses[0]);
-		parties[1] = new Party( (byte)Main.ID++, "PO", "Platforma Obywatelska", "Graphics//Things//Parties//logo//PO.png", decisions, buses[1]);
-		parties[2] = new Party( (byte)Main.ID++, "Nowoczesna", "Partia Ryszarda Petru", "Graphics//Things//Parties//logo//N.png", decisions, buses[2]);
+		parties[0] = new Party( (byte)Main.ID++, "PIS", "Prawo i Sprawiedliwoœæ", "Graphics//Things//Parties//logo//PiS.png",
+				decisions, buses[0], "Graphics//Things//Parties//logo//przejœciePiS.jpg");
+		parties[1] = new Party( (byte)Main.ID++, "PO", "Platforma Obywatelska", "Graphics//Things//Parties//logo//PO.png",
+				decisions, buses[1], "Graphics//Things//Parties//logo//przejœciePO.jpg");
+		parties[2] = new Party( (byte)Main.ID++, "Nowoczesna", "Partia Ryszarda Petru", "Graphics//Things//Parties//logo//N.png",
+				decisions, buses[2], "Graphics//Things//Parties//logo//przejœciePiS.jpg");
 	}
 	int mainParty = 0;
 	

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
@@ -47,8 +48,9 @@ public class World {
 		this.days = days;
 	}
 
+	//r - obszar mapy wyœwietlany na ekranie
 	public void paint(Graphics g, ImageObserver io, Rectangle r){
-		if(mode == 0){
+		if(mode == 0){ //tryb mapy
 		roadMap.paint(g, io, r);
 		for(int i=0; i<things.size(); i++){
 			if(things.get(i).getRect().intersects(r)){
@@ -69,9 +71,15 @@ public class World {
 		if(movingArmy != null){
 			movingArmy.paintInfo(g, io, 1230, 555);
 		}
+		
+		//wyœwietlanie baneru po przejœciu do tury kolejnej partii
+		if(parties[curParty].hasShowedBanner()){
+			Image banner = parties[curParty].getBanner();
+			g.drawImage(banner, (int)r.getWidth()/2-banner.getWidth(io)/2, (int)r.getHeight()/2-banner.getHeight(io)/2, io);
+		}
 		}
 		
-		else if(mode == 1){
+		else if(mode == 1){ //tryb menu
 			g.setColor(Color.BLACK);
 			clickedCity.paint(g, io, (int)r.getWidth(), (int)r.getHeight());
 
@@ -176,6 +184,7 @@ public class World {
 		days++;
 		curParty++;
 		if(curParty == parties.length) curParty = 0;
+		parties[curParty].showBanner();
 		}
 	
 	public int getDaysNum(){return days;}

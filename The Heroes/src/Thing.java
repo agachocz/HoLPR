@@ -112,6 +112,7 @@ public void change(){
 }
 
 public void setImage(Image img){curImg = img;}
+public void setLogo(Image img){logoIMG = img;}
 
 public void update() throws IOException{
 	logoIMG = curImg = Main.getImage(logo);

@@ -104,6 +104,8 @@ public class RoadMap implements Serializable {
 					//jeœli jest tam budynek
 					if(roads[x][y-1].getType() == -1){
 						for(Building b : buildings){
+							System.out.println("Building id: " + b.getId());
+							System.out.println("Road: "+roads[x][y-1].getBuildingID());
 							if(b.getId() == roads[x][y-1].getBuildingID()){
 								if(!b.isConnected()){
 									connectBuild(b, x, y);

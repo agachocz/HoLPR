@@ -1,7 +1,7 @@
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 
@@ -22,20 +22,28 @@ public class Party extends Thing {
 	private int votes = 0;
 	private int sausage = 0;
 	
+	private String bannerS;
+	private transient Image banner;
+	private boolean isBannerShowed = false;
+	private int bannerCounter = 0; //czas wyœwietlania baneru / 100 milisekund
+	
 	private Bus bus;
 	
-	public Party (byte id, String name, String info, String logo, ArrayList<Decision> decisions, Bus bus) throws IOException{
+	public Party (byte id, String name, String info, String logo, ArrayList<Decision> decisions, Bus bus, String bannerS) throws IOException{
 		super(id, name, info, logo);
 		cities = new ArrayList<City>();
 		heroes = new ArrayList<Hero>();
 		armies = new ArrayList<Army>();
 		this.decisions = decisions; 
+		this.bannerS = bannerS;
 		this.bus = bus;
 		
 		//wstêpne iloœci surowców
 		addMoney(500);
 		addVotes(500);
 		addSausage(500);
+		
+		banner = Main.getImage(bannerS);
 	}
 	
 	public void paint(Graphics g, ImageObserver io, int x0, int y0){
@@ -58,6 +66,29 @@ public class Party extends Thing {
 				count++;
 			}
 		}
+		
+		
+		//opuszczanie baneru
+		if(isBannerShowed){
+			bannerCounter++;
+			if(bannerCounter == 50) {
+				isBannerShowed = false;
+				bannerCounter = 0;
+			}
+		}
+
+	}
+	
+	public Image getBanner() {
+		return banner;
+	}
+	
+	public void showBanner(){
+		isBannerShowed = true;
+	}
+	
+	public boolean hasShowedBanner(){
+		return isBannerShowed;
 	}
 	
 	public Army getClickedArmy(Rectangle r){
@@ -126,13 +157,19 @@ public class Party extends Thing {
 	public ArrayList<Army> getArmies(){return armies;}
 
 	
-	public Bus makeBus(){try {
+	public Bus makeBus(){
+		try {
 		return (Bus) bus.clone();
 	} catch (CloneNotSupportedException e) {
 		e.printStackTrace();
 		return null;
 	}}
 	
-	
+	private void readObject (ObjectInputStream in) throws ClassNotFoundException, IOException{
+		in.defaultReadObject();
+		this.setLogo(Main.getImage(getLogo()));
+		this.update();
+		banner = Main.getImage(bannerS);
+	}
 
 }
