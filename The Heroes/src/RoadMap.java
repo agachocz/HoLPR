@@ -96,7 +96,7 @@ public class RoadMap implements Serializable {
 				r.setType(0);
 				roads[x][y] = r;
 			
-				if(roads[x][y-1] != null){
+				if( y > 0 && roads[x][y-1] != null){
 					join(roads[x][y-1], r, 2);
 					removeEnds(x, y-1, 2);
 					removeEnds(x, y, 0);
@@ -115,7 +115,7 @@ public class RoadMap implements Serializable {
 					}
 					
 				}
-				if(roads[x][y+1] != null){ 
+				if( y+1 < roads[x].length && roads[x][y+1] != null){ 
 					join(roads[x][y+1], r, 0);					
 					removeEnds(x, y+1, 0);
 					removeEnds(x, y, 2);
@@ -131,7 +131,7 @@ public class RoadMap implements Serializable {
 					}
 
 				}
-				if(roads[x-1][y] != null){
+				if(  x > 0 && roads[x-1][y] != null){
 					join(roads[x-1][y], r, 1);
 					removeEnds(x-1, y, 1);
 					removeEnds(x, y, 3);
@@ -147,7 +147,7 @@ public class RoadMap implements Serializable {
 					}
 					
 				}
-				if(roads[x+1][y] != null){ 
+				if( x+1 < roads.length && roads[x+1][y] != null){ 
 					join(roads[x+1][y], r, 3);
 					removeEnds(x+1, y, 3);
 					removeEnds(x, y, 1);
