@@ -5,7 +5,7 @@ public class Soldier extends Thing {
 	
 	/**
 	 * Jednostka
-	 * OBRAZEK MUSI MIEÆ 95x100!
+	 * OBRAZEK MUSI MIEÆ 93x100!
 	 */
 	
 	private int life;
