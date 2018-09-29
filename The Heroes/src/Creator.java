@@ -288,7 +288,7 @@ public class Creator extends JFrame implements KeyListener, Serializable, MouseL
 		
 		setLocation(0, 0);
 		setSize(width, height);
-		setTitle("Kreator mapy");
+		setName("Kreator mapy");
 		GridBagLayout gbl = new GridBagLayout();
 		c.setLayout(gbl);
 		

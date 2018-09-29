@@ -81,25 +81,25 @@ public class World {
 		
 		else if(mode == 1){ //tryb menu
 			g.setColor(Color.BLACK);
-			clickedCity.paint(g, io, (int)r.getWidth(), (int)r.getHeight());
+			clickedCity.paint(g, io, (int)r.getWidth()-270, (int)r.getHeight());
 
 		}
 	}
 	
-	//Tryb kierowania armi¹
+	//Tryb kierowania armi¹ - zaznacza dostêpne pola
 	//a = null, jeœli armia zostaje odznaczona
-	public void moveArmy(Army a){
+	public void moveArmy(Army a, int prevRange){
 		if(a == null){
 			if(movingArmy != null){
 			int xStart = movingArmy.getBus().getX();
 			int yStart = movingArmy.getBus().getY();
-			roadMap.checkAv(xStart, yStart, false);
+			roadMap.checkAv(xStart, yStart, false, prevRange);
 			}
 		}
 		else {
 			int xStart = a.getBus().getX();
 			int yStart = a.getBus().getY();
-			roadMap.checkAv(xStart, yStart, true);
+			roadMap.checkAv(xStart, yStart, true, prevRange); 
 		}
 		movingArmy = a;
 	}
@@ -123,7 +123,12 @@ public class World {
 				ArrayList<Integer> route = roadMap.makeMove((int)r.getX(), (int)r.getY());
 				if(route != null){
 					movingArmy.getBus().setRoute(route);
-					moveArmy(null);
+					int prevRange = movingArmy.getRange();
+					movingArmy.setRange(prevRange - route.size());
+					System.out.println("Range:" + movingArmy.getRange());
+					//Zaprzestanie wyœwietlania dostêpnej trasy
+					moveArmy(null, prevRange);
+
 				}
 			}
 		}
@@ -184,7 +189,7 @@ public class World {
 		days++;
 		curParty++;
 		if(curParty == parties.length) curParty = 0;
-		parties[curParty].showBanner();
+		parties[curParty].newDay();
 		}
 	
 	public int getDaysNum(){return days;}

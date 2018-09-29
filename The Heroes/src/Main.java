@@ -1,6 +1,7 @@
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -8,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import javax.swing.JApplet;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -48,8 +50,8 @@ public class Main extends JFrame implements KeyListener{
 		 
 		setSize(width, height);
 		setLocation(0, 0);
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setResizable(false);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout(FlowLayout.CENTER));
 		//setUndecorated(true);
 				
@@ -62,19 +64,6 @@ public class Main extends JFrame implements KeyListener{
 		repaint();
 	}
 	
-	/*
-	public void paint(Graphics g)
-	{
-		g.drawImage(img, 0, 0, this);
-		//actPanel.repaint();
-		//repaint();
-		menu.repaint();
-		//if(c.getComponent(0) == menu){
-		//	menu.repaint();
-		//}
-		//else scene.repaint();
-	}
-	*/
 	
 	public Scene getScene(){return scene;}
 	public World getWorld(){return scene.getWorld();}
@@ -83,11 +72,14 @@ public class Main extends JFrame implements KeyListener{
 		return true;
 	}
 	
-	public static void main(String[] args) throws IOException {
-			JFrame mainFrame = new Main();
-			mainFrame.setVisible(true);
-			mainFrame.repaint();
-	} 
+	//MAIN
+    public static void main(String[] args) throws IOException
+    {
+        // JFrame
+        JFrame frame = new Main();
+        frame.setVisible(true);
+
+    }
 	
 	public void showDialog(JDialog dialog)
 	{

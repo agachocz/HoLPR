@@ -149,17 +149,11 @@ public class Menu extends JPanel{
 		
 	}
 	
-	/*
-	public void paint(Graphics g)
+	
+	public void paintComponent(Graphics g)
 	{
-		
-		if(mainMenu.isVisible()){ mainMenu.repaint();}
-		if(read.isVisible())read.repaint();
-		if(save.isVisible())save.repaint();
-		if(newGame.isVisible())newGame.repaint();
-		
-		
-	}*/
+		g.drawImage(img, 0, 0, this);		
+	}
 	
 	
 	

@@ -70,8 +70,8 @@ public class RoadMap implements Serializable {
 	}
 	
 	//Zaznaczanie dróg w zasiêgu
-	//Przy za³o¿eniu sta³ego maksymalnego dystansu 5 dróg
-	public void checkAv(int posX, int posY, boolean b){
+	//dist - dostêpny zasiêg
+	public void checkAv(int posX, int posY, boolean b, int dist){
 		//indeksy startu
 		int xStart = posX/step;
 		int yStart = posY/step;
@@ -80,7 +80,7 @@ public class RoadMap implements Serializable {
 		if(b) passed = new ArrayList<Integer>();
 		else passed = null;
 		
-		roads[xStart][yStart].checkNext(roads, xStart, yStart, 5, b, passed, -1);
+		roads[xStart][yStart].checkNext(roads, xStart, yStart, dist, b, passed, -1);
 		
 	}
 	
@@ -104,8 +104,8 @@ public class RoadMap implements Serializable {
 					//jeœli jest tam budynek
 					if(roads[x][y-1].getType() == -1){
 						for(Building b : buildings){
-							System.out.println("Building id: " + b.getId());
-							System.out.println("Road: "+roads[x][y-1].getBuildingID());
+							//System.out.println("Building id: " + b.getId());
+							//System.out.println("Road: "+roads[x][y-1].getBuildingID());
 							if(b.getId() == roads[x][y-1].getBuildingID()){
 								if(!b.isConnected()){
 									connectBuild(b, x, y);
@@ -193,13 +193,19 @@ public class RoadMap implements Serializable {
 		buildings.add(b);
 		buildings.get(buildings.size()-1).setId(Main.ID++);
 		
-		for(int i = b.getX()/step; i<(b.getX() + b.getWidth())/step; i++){
+/*		for(int i = b.getX()/step; i<(b.getX() + b.getWidth())/step; i++){
 			for(int j = b.getY()/step; j<(b.getY() + b.getHeight())/step; j++){
 				roads[i][j] = r;
 				roads[i][j].setType(-1);
 				roads[i][j].setBuildingID(b.getId());
 			}
-		}
+		}*/
+		
+		int i = (b.getX() + b.getWidth()/2 - step)/step;
+		int j = (b.getY() + b.getHeight() - step)/step;
+		roads[i][j] = r;
+		roads[i][j].setType(-1);
+		roads[i][j].setBuildingID(b.getId());
 	}
 	
 	public void removeEnds(int x, int y, int dir){

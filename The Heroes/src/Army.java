@@ -14,6 +14,7 @@ private int capacity = 8; //maksymalna liczba grup w armii
 private ArrayList<Group> groups;
 private Hero hero;
 private Bus bus;
+private int range = 5;
 
 private boolean selected = false;
 public int iconX, iconY;
@@ -59,15 +60,17 @@ private Rectangle downRect = new Rectangle(368, 676, capacity*97, 100);
 		iconY = y;
 	}
 	
+	//Wyœwietlane na dole menu
+	//Drobne informacje na temat armii
 	public void paintInfo(Graphics g, ImageObserver io, int x, int y){
 		hero.paint(g, io, x+16, y);
 		g.setColor(Color.white);
 		g.drawString(hero.getName(), x+110, y+5);
 		
-		String[] infoTab = hero.getInfoInLines(20);
+/*		String[] infoTab = hero.getInfoInLines(20);
 		for(int i=0; i<infoTab.length; i++){
 			g.drawString(infoTab[i], x+110, y+5+20*i);
-		}
+		}*/
 		
 		for(int i=0; i<groups.size(); i++){
 			if(i < 5){
@@ -78,6 +81,9 @@ private Rectangle downRect = new Rectangle(368, 676, capacity*97, 100);
 			}
 		}
 	}
+	
+	public int getRange(){return range;}
+	public void setRange(int i){range = i;}
 	
 	public boolean isSelected(){return selected;}
 	

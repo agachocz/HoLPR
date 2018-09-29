@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -18,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 public class DecisionDialog extends JDialog {
@@ -39,7 +41,7 @@ public class DecisionDialog extends JDialog {
 	private JDialog md;
 	
 	public DecisionDialog(JFrame frame, Decision decision) {
-		super(frame, "Title", true);
+		super(SwingUtilities.windowForComponent(frame));
 		this.frame = frame;
 		this.decision = decision;
 		

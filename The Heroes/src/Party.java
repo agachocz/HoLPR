@@ -79,6 +79,22 @@ public class Party extends Thing {
 
 	}
 	
+	public void newDay(){
+		showBanner();
+		for(Army a : armies){
+			a.setRange(5);
+		}
+		for(City city : cities){
+
+			Army army = city.getVisitingArmy();
+
+			if(army.hasHero()){
+				army.setRange(5);
+			}
+			
+		}
+	}
+	
 	public Image getBanner() {
 		return banner;
 	}

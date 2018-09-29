@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 public class MessageDialog extends JDialog {
@@ -22,7 +24,7 @@ public class MessageDialog extends JDialog {
 	
 	public MessageDialog(JFrame frame, Message message)
 	{
-		super(frame, "Title", true);
+		super(SwingUtilities.windowForComponent(frame));
 		this.message = message;
 		this.frame = frame;
 		

@@ -125,12 +125,11 @@ public class Scene extends JPanel implements Serializable, MouseListener, MouseM
 			g.fillRect(0, 0, width, mTop );
 			g.fillRect(0, height-mDown, width, mDown);			
 			
-			world.paint(g, this, scene);
-
 			
 			//Malowanie menu
 			gameMenu.paint(g, this, scene, world.getCurParty());
-			g.drawString(world.getDate(), width-230, 815);				
+			g.drawString(world.getDate(), width-230, 815);	
+			world.paint(g, this, scene);
 		} 
 		
 	}
@@ -221,7 +220,9 @@ private class Listener implements ActionListener{ //S³uchacz do listy Combo i od
 			}
 			//Wybieranie ikony armii w menu
 			Army a = world.getCurParty().getClickedArmy(r);
-			world.moveArmy(a);
+			if(a != null){
+				world.moveArmy(a, a.getRange());
+			}
 			
 		}
 		else {
